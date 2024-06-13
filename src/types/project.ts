@@ -1,7 +1,14 @@
+enum ProjectType {
+  SOLUTION = 'solution',
+  TECHNICAL = 'technical',
+  ENTREPRENEURSHIP = 'entrepreneurship'
+}
+
 export interface ProjectDomain {
   name: string;
   starsCount: number;
   viewsCount: number;
+  envisagedType: ProjectType;
 }
 
 export interface Project {
@@ -9,4 +16,5 @@ export interface Project {
   stars: number;
   views: number;
   ratio: number;
+  type: ProjectType;
 }
