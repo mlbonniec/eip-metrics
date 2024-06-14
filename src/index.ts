@@ -1,7 +1,7 @@
 import type { ProjectDomain, Project } from './types/project';
 import { join } from 'path';
 import { table } from 'table';
-import axios from 'axios';
+import axios, { type AxiosError } from 'axios';
 import fs from 'fs';
 
 type Body = { results: ProjectDomain[]; next: number | null; }
@@ -36,7 +36,21 @@ async function fetchProjects(offset: number): Promise<void> {
     if (body.next)
       await fetchProjects(body.next);
   })
-  .catch(error => console.error(error));
+  .catch(err => {
+    if (!axios.isAxiosError(err))
+      console.error(`Fail to fetch projects: ${err}`);
+
+    const axiosError: AxiosError = err;
+
+    switch (axiosError.response?.status) {
+      case 401:
+        console.error('Invalid access token');
+        break;
+      default:
+        console.error(`Unknown error: ${axiosError.message}`);
+        break;
+    }
+  });
 }
 
 async function generateMetrics() {
