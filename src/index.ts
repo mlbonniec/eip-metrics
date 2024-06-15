@@ -41,7 +41,6 @@ async function fetchProjects(offset: number): Promise<void> {
       console.error(`Fail to fetch projects: ${err}`);
 
     const axiosError: AxiosError = err;
-
     switch (axiosError.response?.status) {
       case 401:
         console.error('Invalid access token');
