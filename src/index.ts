@@ -7,7 +7,6 @@ import fs from 'fs';
 type Body = { results: ProjectDomain[]; next: number | null; }
 
 const result: ProjectDomain[] = [];
-
 const directory: string = 'metrics';
 
 async function fetchProjects(offset: number): Promise<void> {
