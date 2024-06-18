@@ -1,7 +1,7 @@
 import type { ProjectDomain, Project } from './types/project';
+import axios, { type AxiosError } from 'axios';
 import { join } from 'path';
 import { table } from 'table';
-import axios, { type AxiosError } from 'axios';
 import fs from 'fs';
 
 type Body = { results: ProjectDomain[]; next: number | null; }
