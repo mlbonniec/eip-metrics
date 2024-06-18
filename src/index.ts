@@ -80,7 +80,8 @@ async function generateMetrics() {
     }
   });
 
-  const sorted: Project[] = metrics.sort((a, b) => b.ratio - a.ratio);
+  const sorted: Project[] = metrics.sort((a, b) => b.ratio - a.ratio); // Sort by ratio
+  // const sorted: Project[] = metrics.sort((a, b) => b.stars - a.stars); // Sort by stars
 
   console.log(table([
     ['Position', 'Name', 'Views', 'Stars', 'Ratio', 'Type', 'Ville'],
