@@ -3,3 +3,5 @@ metrics
 
 .env*
 *.txt
+
+.DS_Store
