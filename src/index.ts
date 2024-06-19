@@ -72,11 +72,13 @@ async function generateMetrics() {
     return {
       id: e.id,
       name: e.name,
+      description: e.description,
       views: e.viewsCount,
       stars: e.starsCount,
       ratio: Math.round(ratio * 100) / 100,
       type: e.envisagedType,
-      city: e.ownerCity.name
+      city: e.ownerCity.name,
+      status: e.status
     }
   });
 
