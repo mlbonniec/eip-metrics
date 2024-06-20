@@ -75,7 +75,7 @@ async function generateMetrics() {
       city: e.ownerCity.name,
       status: e.status
     }
-  });
+  }).filter(e => e.status === ProjectStatus.REJECTED);
 
   console.log(table([
     ['Name', 'Type', 'Ville', 'Description', 'Status'],
