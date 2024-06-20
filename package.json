@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "src/index.ts",
   "scripts": {
-    "dev": "ts-node --require dotenv/config src/index.ts"
+    "dev": "ts-node --require dotenv/config src/index.ts",
+    "dev:rejected": "ts-node --require dotenv/config src/rejected.ts"
   },
   "author": "",
   "license": "ISC",
