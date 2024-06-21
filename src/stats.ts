@@ -130,7 +130,7 @@ async function generateMetrics() {
   console.log(`\x1b[38;5;7m█\x1b[0m Draft: ${draft} (${((draft / total) * 100).toFixed(2)}%)`);
   let totalExcludingDraft = rejected + pending + approved + waiting_update;
 
-  console.log(`\nTotal without draft: ${total}`);
+  console.log(`\nTotal without draft: ${totalExcludingDraft}`);
   console.log(`\x1b[31m█\x1b[0m Rejected: ${rejected} (${((rejected / totalExcludingDraft) * 100).toFixed(2)}%)`);
   console.log(`\x1b[33m█\x1b[0m Pending: ${pending} (${((pending / totalExcludingDraft) * 100).toFixed(2)}%)`);
   console.log(`\x1b[32m█\x1b[0m Approved: ${approved} (${((approved / totalExcludingDraft) * 100).toFixed(2)}%)`);
