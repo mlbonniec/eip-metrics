@@ -53,6 +53,31 @@ async function fetchProjects(offset: number): Promise<void> {
     });
 }
 
+const getBarChart = (statuses: { [key: string]: number }, total: number): string => {
+  let bar = '';
+  for (const status in statuses) {
+    if (total === 0 || isNaN(total)) {
+      console.error('Total is zero or not a number');
+      return "Nan";
+    }
+
+    const percentage = (Number(statuses[status]) / total) * 100;
+
+    const color = status === 'rejected' ? '\x1b[31m' : // red
+      status === 'pending' ? '\x1b[33m' : // yellow
+        status === 'approved' ? '\x1b[32m' : // green
+          status === 'draft' ? '\x1b[38;5;7m' : // gray
+            '\x1b[34m'; // blue
+
+    const barLength = Math.round(percentage / 2); // Adjust this to change the scale of the chart
+    for (let i = 0; i < barLength; i++) {
+      bar += `${color}█\x1b[0m`;
+    }
+    bar += '\x1b[0m'; // Reset color
+  }
+  return bar;
+}
+
 async function generateMetrics() {
   await fetchProjects(0);
 
@@ -96,28 +121,7 @@ async function generateMetrics() {
   };
 
   console.log("Stats:");
-  let bar = '';
-  for (const status in statuses) {
-    if (total === 0 || isNaN(total)) {
-      console.error('Total is zero or not a number');
-      return;
-    }
-
-    const percentage = (Number(statuses[status]) / total) * 100;
-
-    const color = status === 'rejected' ? '\x1b[31m' : // red
-      status === 'pending' ? '\x1b[33m' : // yellow
-        status === 'approved' ? '\x1b[32m' : // green
-          status === 'draft' ? '\x1b[38;5;7m' : // gray
-            '\x1b[34m'; // blue
-
-    const barLength = Math.round(percentage / 2); // Adjust this to change the scale of the chart
-    for (let i = 0; i < barLength; i++) {
-      bar += `${color}█\x1b[0m`;
-    }
-    bar += '\x1b[0m'; // Reset color
-  }
-  console.log(bar);
+  console.log(getBarChart(statuses, total));
   console.log(`Total: ${total}`);
   console.log(`\x1b[31m█\x1b[0m Rejected: ${rejected} (${((rejected / total) * 100).toFixed(2)}%)`);
   console.log(`\x1b[33m█\x1b[0m Pending: ${pending} (${((pending / total) * 100).toFixed(2)}%)`);
@@ -148,29 +152,7 @@ async function generateMetrics() {
     waiting_update: rennes.filter(e => e.status === ProjectStatus.WAITING).length
   };
 
-  let rennesBar = '';
-  for (const status in rennesStatuses) {
-    if (rennesTotal === 0 || isNaN(rennesTotal)) {
-      console.error('Total is zero or not a number');
-      return;
-    }
-
-    const percentage = (Number(rennesStatuses[status]) / rennesTotal) * 100;
-
-    const color = status === 'rejected' ? '\x1b[31m' : // red
-      status === 'pending' ? '\x1b[33m' : // yellow
-        status === 'approved' ? '\x1b[32m' : // green
-          status === 'draft' ? '\x1b[38;5;7m' : // gray
-            '\x1b[34m'; // blue
-
-    const barLength = Math.round(percentage / 2); // Adjust this to change the scale of the chart
-    for (let i = 0; i < barLength; i++) {
-      rennesBar += `${color}█\x1b[0m`;
-    }
-    rennesBar += '\x1b[0m'; // Reset color
-  }
-
-  console.log(rennesBar);
+  console.log(getBarChart(rennesStatuses, rennesTotal));
   console.log(`Total: ${rennesTotal}`);
   console.log(`\x1b[31m█\x1b[0m Rejected: ${rennesRejected} (${((rennesRejected / rennesTotal) * 100).toFixed(2)}%)`);
   console.log(`\x1b[33m█\x1b[0m Pending: ${rennesPending} (${((rennesPending / rennesTotal) * 100).toFixed(2)}%)`);
