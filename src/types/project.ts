@@ -7,7 +7,9 @@ enum ProjectType {
 export enum ProjectStatus {
   PENDING = 'pending',
   APPROVED = 'approved',
-  REJECTED = 'rejected'
+  REJECTED = 'rejected',
+  DRAFT = 'draft',
+  WAITING = 'waiting_update',
 }
 
 export interface ProjectDomain {
