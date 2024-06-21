@@ -4,7 +4,8 @@
   "main": "src/index.ts",
   "scripts": {
     "dev": "ts-node --require dotenv/config src/index.ts",
-    "dev:rejected": "ts-node --require dotenv/config src/rejected.ts"
+    "dev:rejected": "ts-node --require dotenv/config src/rejected.ts",
+    "dev:stats": "ts-node --require dotenv/config src/stats.ts"
   },
   "author": "",
   "license": "ISC",
